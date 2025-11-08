@@ -128,7 +128,7 @@ const MyTransaction = () => {
             {transactions.map((t) => (
               <div
                 key={t._id}
-                className="card bg-base-100 shadow-xl transition-transform transform hover:-translate-y-2 h-[22rem]"
+                className="card bg-base-100 shadow-xl transition-transform transform hover:-translate-y-2 h-88"
               >
                 <div className="card-body flex flex-col">
                   <div className="flex justify-between items-start">

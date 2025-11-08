@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import {
   FaWallet,
   FaDollarSign,
@@ -55,7 +54,7 @@ const UpdateTransaction = () => {
     const date = form.date.value;
 
     if (!category || !amount || !description || !date) {
-      toast.error('Please fill all fields.');
+      toast('Please fill all fields.');
       return;
     }
 
@@ -69,11 +68,11 @@ const UpdateTransaction = () => {
 
     try {
       await axios.patch(`/transactions/${loadedTransaction._id}`, updatedData);
-      toast.success('Transaction Updated Successfully!');
+      toast('Transaction Updated Successfully!');
       navigate(`/my-transactions`);
     } catch (error) {
       console.error(error);
-      toast.error('Failed to update transaction.');
+      toast('Failed to update transaction.');
     }
   };
 
@@ -82,31 +81,31 @@ const UpdateTransaction = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-50 p-4 md:p-8 flex items-center justify-center">
-      <div className="card w-full max-w-4xl shadow-xl bg-white rounded-lg overflow-hidden">
+    <div className="min-h-screen bg-base-200 p-4 md:p-8 flex items-center justify-center">
+      <div className="card w-full max-w-4xl shadow-xl bg-base-100 rounded-lg overflow-hidden">
         <div className="card-body p-6 md:p-10">
-          <h2 className="text-4xl font-extrabold text-center text-indigo-700 mb-2">
+          <h2 className="text-4xl font-extrabold text-center text-primary mb-2">
             Update Transaction
           </h2>
-          <p className="text-center text-gray-600 mb-8">
+          <p className="text-center text-base-content/80 mb-8">
             Refine your financial record with precision.
           </p>
 
           <form onSubmit={handleUpdate} className="space-y-6">
             <div className="form-control mb-8">
               <label className="label">
-                <span className="label-text text-lg font-semibold text-gray-700">
+                <span className="label-text text-lg font-semibold">
                   Transaction Type
                 </span>
               </label>
-              <div className="flex bg-gray-100 rounded-lg p-1">
+              <div className="flex bg-base-200 rounded-lg p-1">
                 <button
                   type="button"
                   onClick={() => handleTypeChange('Income')}
                   className={`flex-1 btn btn-lg border-none rounded-lg text-lg transition-all duration-300 ${
                     transactionType === 'Income'
                       ? 'bg-emerald-500 text-white shadow-md hover:bg-emerald-600'
-                      : 'bg-transparent text-gray-600 hover:text-emerald-500'
+                      : 'btn-ghost text-base-content/70 hover:text-emerald-500'
                   }`}
                 >
                   <FaArrowUp /> Income
@@ -117,7 +116,7 @@ const UpdateTransaction = () => {
                   className={`flex-1 btn btn-lg border-none rounded-lg text-lg transition-all duration-300 ${
                     transactionType === 'Expense'
                       ? 'bg-rose-500 text-white shadow-md hover:bg-rose-600'
-                      : 'bg-transparent text-gray-600 hover:text-rose-500'
+                      : 'btn-ghost text-base-content/70 hover:text-rose-500'
                   }`}
                 >
                   <FaArrowDown /> Expense
@@ -128,16 +127,16 @@ const UpdateTransaction = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-gray-700">Category</span>
+                  <span className="label-text">Category</span>
                 </label>
-                <label className="input input-bordered flex items-center gap-3 bg-gray-50 border border-gray-200 focus-within:border-indigo-400">
-                  <FaWallet className="text-gray-400" />
+                <label className="input input-bordered flex items-center gap-3 bg-base-200 border-base-300 focus-within:border-primary">
+                  <FaWallet className="text-base-content/60" />
                   <select
                     name="category"
                     className="grow bg-transparent outline-none appearance-none"
                     defaultValue={loadedTransaction.category}
                   >
-                    <option value="" disabled className="text-gray-500">
+                    <option value="" disabled>
                       Select a category
                     </option>
                     {categoriesToShow.map((category) => (
@@ -151,16 +150,16 @@ const UpdateTransaction = () => {
 
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-gray-700">Amount</span>
+                  <span className="label-text">Amount</span>
                 </label>
-                <label className="input input-bordered flex items-center gap-3 bg-gray-50 border border-gray-200 focus-within:border-indigo-400">
-                  <FaDollarSign className="text-gray-400" />
+                <label className="input input-bordered flex items-center gap-3 bg-base-200 border-base-300 focus-within:border-primary">
+                  <FaDollarSign className="text-base-content/60" />
                   <input
                     type="number"
                     name="amount"
                     placeholder="0.00"
                     step="0.01"
-                    className="grow outline-none"
+                    className="grow outline-none bg-transparent"
                     defaultValue={loadedTransaction.amount}
                   />
                 </label>
@@ -168,14 +167,14 @@ const UpdateTransaction = () => {
 
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-gray-700">Date</span>
+                  <span className="label-text">Date</span>
                 </label>
-                <label className="input input-bordered flex items-center gap-3 bg-gray-50 border border-gray-200 focus-within:border-indigo-400">
-                  <FaCalendarAlt className="text-gray-400" />
+                <label className="input input-bordered flex items-center gap-3 bg-base-200 border-base-300 focus-within:border-primary">
+                  <FaCalendarAlt className="text-base-content/60" />
                   <input
                     type="date"
                     name="date"
-                    className="grow outline-none"
+                    className="grow outline-none bg-transparent"
                     defaultValue={loadedTransaction.date}
                   />
                 </label>
@@ -183,12 +182,12 @@ const UpdateTransaction = () => {
 
               <div className="form-control md:col-span-2 flex flex-col">
                 <label className="label">
-                  <span className="label-text text-gray-700 mb-2">Description</span>
+                  <span className="label-text mb-2">Description</span>
                 </label>
                 <textarea
                   name="description"
                   placeholder="Add a detailed note about this transaction..."
-                  className="textarea textarea-bordered h-32 bg-gray-50 border border-gray-200 focus:border-indigo-400 focus:outline-none resize-y w-full"
+                  className="textarea textarea-bordered h-32 bg-base-200 border-base-300 focus:border-primary focus:outline-none resize-y w-full"
                   defaultValue={loadedTransaction.description}
                 />
               </div>
@@ -205,13 +204,12 @@ const UpdateTransaction = () => {
             </div>
           </form>
 
-          <div className="text-center mt-8 text-gray-500 text-sm flex items-center justify-center gap-2">
-            <FaRegLightbulb className="text-indigo-400" />
+          <div className="text-center mt-8 text-base-content/70 text-sm flex items-center justify-center gap-2">
+            <FaRegLightbulb className="text-primary" />
             <span>Ensure all details are accurate before saving.</span>
           </div>
         </div>
       </div>
-      <ToastContainer position="bottom-right" autoClose={3000} newestOnTop />
     </div>
   );
 };
