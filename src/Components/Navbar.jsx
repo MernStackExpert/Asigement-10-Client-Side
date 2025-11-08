@@ -25,7 +25,7 @@ const Navbar = () => {
       {user && (
         <>
           <li>
-            <NavLink>Add Transaction</NavLink>
+            <NavLink to={"/add-transaction"}>Add Transaction</NavLink>
           </li>
           <li>
             <NavLink to={"/my-transaction"}>My Transaction</NavLink>
