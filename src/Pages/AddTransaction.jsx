@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import {
   FaWallet,
   FaDollarSign,
@@ -10,36 +10,43 @@ import {
   FaPlus,
   FaArrowUp,
   FaArrowDown,
-} from 'react-icons/fa';
-import { useAuthContext } from '../Context/useAuthContext';
+} from "react-icons/fa";
+import { useAuthContext } from "../Context/useAuthContext";
+import { useAxios } from "../Hooks/useAxios";
 
 const AddTransaction = () => {
-  const [transactionType, setTransactionType] = useState('Expense');
+  const axios = useAxios();
+  const [transactionType, setTransactionType] = useState("Expense");
   const { user } = useAuthContext();
 
   const incomeCategories = [
-    { value: 'Salary', label: 'Salary' },
-    { value: 'Bonus', label: 'Bonus' },
-    { value: 'Freelance', label: 'Freelance' },
-    { value: 'Investment', label: 'Investment' },
-    { value: 'Other', label: 'Other (Income)' },
+    { value: "Salary", label: "Salary" },
+    { value: "Bonus", label: "Bonus" },
+    { value: "Freelance", label: "Freelance" },
+    { value: "Investment", label: "Investment" },
+    { value: "Other", label: "Other (Income)" },
   ];
 
   const expenseCategories = [
-    { value: 'Groceries', label: 'Groceries' },
-    { value: 'Rent', label: 'Rent' },
-    { value: 'Bills', label: 'Bills' },
-    { value: 'Transport', label: 'Transport' },
-    { value: 'Entertainment', label: 'Entertainment' },
-    { value: 'Health', label: 'Health' },
-    { value: 'Savings', label: 'Savings' },
-    { value: 'Other', label: 'Other (Expense)' },
+    { value: "Groceries", label: "Groceries" },
+    { value: "Rent", label: "Rent" },
+    { value: "Bills", label: "Bills" },
+    { value: "Transport", label: "Transport" },
+    { value: "Entertainment", label: "Entertainment" },
+    { value: "Health", label: "Health" },
+    { value: "Savings", label: "Savings" },
+    { value: "Other", label: "Other (Expense)" },
   ];
 
   const categoriesToShow =
-    transactionType === 'Income' ? incomeCategories : expenseCategories;
+    transactionType === "Income" ? incomeCategories : expenseCategories;
 
-  const handleSubmit = (e) => {
+  const handleTypeChange = (type) => {
+    setTransactionType(type);
+    document.getElementsByName("category")[0].value = "";
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const category = form.category.value;
@@ -48,7 +55,7 @@ const AddTransaction = () => {
     const date = form.date.value;
 
     if (!category || !amount || !description || !date) {
-      toast.error('Please fill all fields.');
+      toast.error("Please fill all fields.");
       return;
     }
 
@@ -60,17 +67,17 @@ const AddTransaction = () => {
       date,
       userEmail: user?.email,
       userName: user?.displayName,
+      createdAt: new Date().toISOString(),
     };
 
-    console.log(transactionData);
-    toast.success('Transaction Added Successfully!');
-    form.reset();
-    setTransactionType('Expense');
-  };
-
-  const handleTypeChange = (type) => {
-    setTransactionType(type);
-    document.getElementsByName('category')[0].value = '';
+    try {
+      await axios.post("/transactions", transactionData);
+      toast.success("Transaction Added Successfully!");
+      form.reset();
+      setTransactionType("Expense");
+    } catch (error) {
+      toast.error("Failed to add transaction" , error);
+    }
   };
 
   return (
@@ -90,22 +97,22 @@ const AddTransaction = () => {
             <div className="join w-full">
               <button
                 type="button"
-                onClick={() => handleTypeChange('Income')}
+                onClick={() => handleTypeChange("Income")}
                 className={`join-item btn btn-lg flex-1 ${
-                  transactionType === 'Income'
-                    ? 'btn-success text-white'
-                    : 'btn-outline btn-success'
+                  transactionType === "Income"
+                    ? "btn-success text-white"
+                    : "btn-outline btn-success"
                 }`}
               >
                 <FaArrowUp /> Income
               </button>
               <button
                 type="button"
-                onClick={() => handleTypeChange('Expense')}
+                onClick={() => handleTypeChange("Expense")}
                 className={`join-item btn btn-lg flex-1 ${
-                  transactionType === 'Expense'
-                    ? 'btn-error text-white'
-                    : 'btn-outline btn-error'
+                  transactionType === "Expense"
+                    ? "btn-error text-white"
+                    : "btn-outline btn-error"
                 }`}
               >
                 <FaArrowDown /> Expense
@@ -186,7 +193,7 @@ const AddTransaction = () => {
                 <FaUser />
                 <input
                   type="text"
-                  value={user?.displayName || 'Loading...'}
+                  value={user?.displayName || "Loading..."}
                   disabled
                   className="grow bg-transparent"
                 />
@@ -201,7 +208,7 @@ const AddTransaction = () => {
                 <FaEnvelope />
                 <input
                   type="email"
-                  value={user?.email || 'Loading...'}
+                  value={user?.email || "Loading..."}
                   disabled
                   className="grow bg-transparent"
                 />
