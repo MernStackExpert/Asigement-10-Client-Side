@@ -7,6 +7,7 @@ import Login from "../Pages/Auth/Login";
 import PrivetRoute from "./PrivetRoute";
 import MyTransaction from "../Pages/MyTransaction";
 import AddTransaction from "../Pages/AddTransaction";
+import Reports from "../Pages/Reports";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,12 @@ export const router = createBrowserRouter([
         path:"/add-transaction",
         element:<PrivetRoute>
           <AddTransaction></AddTransaction>
+        </PrivetRoute>
+      },
+      {
+        path:"/reports",
+         element:<PrivetRoute>
+          <Reports></Reports>
         </PrivetRoute>
       }
     ]
