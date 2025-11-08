@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router";
 import {
   FaWallet,
@@ -7,13 +7,47 @@ import {
   FaLightbulb,
   FaChartLine,
 } from "react-icons/fa";
+import { AuthContext } from "../Provider/AuthContext";
+import { useAxios } from "../Hooks/useAxios";
 
 const Home = () => {
-  const financialData = {
-    balance: 5250.75,
-    income: 8500.0,
-    expense: 3249.25,
-  };
+  const { user } = useContext(AuthContext);
+  const axios = useAxios();
+  const [financialData, setFinancialData] = useState({
+    balance: 0,
+    income: 0,
+    expense: 0,
+  });
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      if (!user?.email) return;
+
+      try {
+        const res = await axios.get(`/transactions?email=${user.email}`);
+        const transactions = res.data || [];
+
+        let income = 0;
+        let expense = 0;
+
+        transactions.forEach((t) => {
+          if (t.type.toLowerCase() === "income") {
+            income += parseFloat(t.amount);
+          } else if (t.type.toLowerCase() === "expense") {
+            expense += parseFloat(t.amount);
+          }
+        });
+
+        const balance = income - expense;
+
+        setFinancialData({ income, expense, balance });
+      } catch (error) {
+        console.error("Failed to fetch transactions:", error);
+      }
+    };
+
+    fetchTransactions();
+  }, [user?.email]);
 
   return (
     <div className="container mx-auto px-4 py-16 space-y-24">

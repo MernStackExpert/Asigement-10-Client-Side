@@ -8,6 +8,7 @@ import MyTransaction from "../Pages/MyTransaction";
 import AddTransaction from "../Pages/AddTransaction";
 import Reports from "../Pages/Reports";
 import TransactionDetails from "../Pages/TransactionDetails";
+import UpdateTransaction from "../Pages/UpdateTransaction";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,23 @@ export const router = createBrowserRouter([
         element: (
           <PrivetRoute>
             <TransactionDetails></TransactionDetails>
+          </PrivetRoute>
+        ),
+        loader: async ({ params }) => {
+          const res = await fetch(
+            `http://localhost:3000/transactions/${params.id}`
+          );
+          if (!res.ok) {
+            throw new Response("Transaction not found", { status: 404 });
+          }
+          return res.json();
+        },
+      },
+      {
+        path: "/update-transaction/:id",
+        element: (
+          <PrivetRoute>
+            <UpdateTransaction></UpdateTransaction>
           </PrivetRoute>
         ),
         loader: async ({ params }) => {

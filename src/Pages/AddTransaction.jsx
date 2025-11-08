@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import {
   FaWallet,
   FaDollarSign,
-  FaPencilAlt,
   FaCalendarAlt,
   FaEnvelope,
   FaUser,
@@ -72,14 +71,13 @@ const AddTransaction = () => {
 
     try {
       await axios.post("/transactions", transactionData);
-      toast.success("Transaction Added Successfully!");
+      toast("Transaction Added Successfully!");
       form.reset();
       setTransactionType("Expense");
     } catch (error) {
-      toast.error("Failed to add transaction" , error);
+      toast.error("Failed to add transaction", error);
     }
   };
-
   return (
     <div className="min-h-screen bg-base-200 p-4 md:p-8">
       <div className="card max-w-4xl mx-auto shadow-2xl bg-base-100">
@@ -170,24 +168,20 @@ const AddTransaction = () => {
               </label>
             </div>
 
-            <div className="form-control">
+            <div className="form-control md:col-span-2 flex flex-col">
               <label className="label">
-                <span className="label-text">Description</span>
+                <span className="label-text mb-2">Description</span>
               </label>
-              <label className="input input-bordered flex items-center gap-2">
-                <FaPencilAlt />
-                <input
-                  type="text"
-                  name="description"
-                  placeholder="Add a short note..."
-                  className="grow"
-                />
-              </label>
+              <textarea
+                name="description"
+                placeholder="Add a short note..."
+                className="textarea textarea-bordered h-30 w-full"
+              />
             </div>
 
             <div className="form-control md:col-span-2">
               <label className="label">
-                <span className="label-text">User Name (Read-only)</span>
+                <span className="label-text">User Name</span>
               </label>
               <label className="input input-bordered flex items-center gap-2 text-gray-500 bg-base-200">
                 <FaUser />
@@ -202,7 +196,7 @@ const AddTransaction = () => {
 
             <div className="form-control md:col-span-2">
               <label className="label">
-                <span className="label-text">User Email (Read-only)</span>
+                <span className="label-text">User Email</span>
               </label>
               <label className="input input-bordered flex items-center gap-2 text-gray-500 bg-base-200">
                 <FaEnvelope />

@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useAuthContext } from "../Context/useAuthContext";
 import { useAxios } from "../Hooks/useAxios";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
-import { FaPencilAlt, FaTrash, FaEye, FaCalendarAlt, FaDollarSign } from "react-icons/fa";
+import {
+  FaPencilAlt,
+  FaTrash,
+  FaEye,
+  FaCalendarAlt,
+} from "react-icons/fa";
 
 const MyTransaction = () => {
   const axios = useAxios();
@@ -85,9 +91,9 @@ const MyTransaction = () => {
             {transactions.map((t) => (
               <div
                 key={t._id}
-                className="card bg-base-100 shadow-xl transition-transform transform hover:-translate-y-2"
+                className="card bg-base-100 shadow-xl transition-transform transform hover:-translate-y-2 h-88"
               >
-                <div className="card-body">
+                <div className="card-body flex flex-col">
                   <div className="flex justify-between items-start">
                     <span
                       className={`badge badge-lg font-semibold ${
@@ -107,30 +113,32 @@ const MyTransaction = () => {
                     <FaCalendarAlt />
                     {new Date(t.date).toLocaleDateString()}
                   </p>
-                  <p className="mt-2 text-gray-600 min-h-[48px]">
-                    {t.description}
+                  <p className="mt-2 text-gray-600 flex-grow overflow-hidden">
+                    {t.description.length > 200
+                      ? t.description.substring(0, 200) + "..."
+                      : t.description}
                   </p>
                   <div className="card-actions justify-end mt-4 space-x-2">
                     <Link
                       to={`/transaction-detailes/${t._id}`}
-                      className="btn btn-sm btn-ghost btn-circle"
+                      className="btn btn-ghost btn-circle"
                       title="View Details"
                     >
-                      <FaEye className="text-info" />
+                      <FaEye className="text-info text-xl" />
                     </Link>
                     <Link
                       to={`/update-transaction/${t._id}`}
-                      className="btn btn-sm btn-ghost btn-circle"
+                      className="btn btn-ghost btn-circle"
                       title="Update"
                     >
-                      <FaPencilAlt className="text-warning" />
+                      <FaPencilAlt className="text-warning text-xl" />
                     </Link>
                     <button
                       onClick={() => handleDelete(t._id)}
-                      className="btn btn-sm btn-ghost btn-circle"
+                      className="btn btn-ghost btn-circle"
                       title="Delete"
                     >
-                      <FaTrash className="text-error" />
+                      <FaTrash className="text-error text-xl" />
                     </button>
                   </div>
                 </div>
