@@ -3,6 +3,9 @@ import { createBrowserRouter } from "react-router";
 import Home from "../Pages/Home";
 import Root from "../Layouts/Root";
 import Register from "../Pages/Auth/Register";
+import Login from "../Pages/Auth/Login";
+import PrivetRoute from "./PrivetRoute";
+import MyTransaction from "../Pages/MyTransaction";
 
 export const router = createBrowserRouter([
   {
@@ -14,8 +17,18 @@ export const router = createBrowserRouter([
         Component:Home
       },
       {
-        path:"/register",
+        path:"/auth/login",
+        Component:Login
+      },
+      {
+        path:"/auth/register",
         Component:Register
+      },
+      {
+        path:"/my-transaction",
+        element:<PrivetRoute>
+          <MyTransaction></MyTransaction>
+        </PrivetRoute>
       }
     ]
   }

@@ -10,7 +10,7 @@ const Root = () => {
         <Navbar></Navbar>
       </header>
 
-      <main className='flex-grow'>
+      <main className='flex-grow mt-20'>
         <Outlet></Outlet>
       </main>
 

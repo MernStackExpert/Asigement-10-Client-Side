@@ -4,33 +4,37 @@ import { useAuthContext } from "../Context/useAuthContext";
 import { toast } from "react-toastify";
 
 const Navbar = () => {
-  const { user , logOut , setUser} = useAuthContext();
-  const navigate = useNavigate()
+  const { user, logOut, setUser } = useAuthContext();
+  const navigate = useNavigate();
   const handleLogOut = () => {
     logOut()
-    .then(() => {
-      toast("LogOut Successfull ✅")
-      setUser(null)
-      navigate("/register")
-    })
-    .then(error => {
-      console.log(error)
-    })
-  }
+      .then(() => {
+        toast("LogOut Successfull ✅");
+        setUser(null);
+        navigate("/auth/login");
+      })
+      .then((error) => {
+        console.log(error);
+      });
+  };
   const links = (
     <>
       <li>
         <NavLink>Home</NavLink>
       </li>
-      <li>
-        <NavLink>Add Transaction</NavLink>
-      </li>
-      <li>
-        <NavLink>My Transaction</NavLink>
-      </li>
-      <li>
-        <NavLink>Reports</NavLink>
-      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink>Add Transaction</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/my-transaction"}>My Transaction</NavLink>
+          </li>
+          <li>
+            <NavLink>Reports</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -85,7 +89,7 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow font-semibold"
             >
               <li>
-                <h1  className="cursor-default">{user?.displayName}</h1>
+                <h1 className="cursor-default">{user?.displayName}</h1>
               </li>
 
               <li>
@@ -98,7 +102,7 @@ const Navbar = () => {
           </div>
         ) : (
           <Link
-            to={"/register"}
+            to={"/auth/login"}
             className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white"
           >
             Login
