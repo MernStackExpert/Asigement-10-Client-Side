@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../Components/Navbar';
 import { Outlet } from 'react-router';
+import Footer from '../Components/Footer';
 
 const Root = () => {
   return (
@@ -9,12 +10,12 @@ const Root = () => {
         <Navbar></Navbar>
       </header>
 
-      <main className='flex-grow mt-50'>
+      <main className='flex-grow'>
         <Outlet></Outlet>
       </main>
 
       <footer className='bg-red-300'>
-        h1 this is footer
+        <Footer></Footer>
       </footer>
       
     </div>
