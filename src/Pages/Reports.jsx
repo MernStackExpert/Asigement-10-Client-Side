@@ -82,7 +82,11 @@ const Reports = () => {
 
   const fetchTransactions = useCallback(async () => {
     try {
-      const res = await axios.get(`/transactions?email=${user?.email}`);
+      const res = await axios.get(`/transactions?email=${user?.email}` ,{
+         headers: {
+        authorization: `Bearer ${user?.accessToken}`
+      }
+      });
       const data = res.data || [];
       setTransactions(data);
       

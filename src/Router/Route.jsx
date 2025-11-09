@@ -62,7 +62,7 @@ export const router = createBrowserRouter([
         ),
         loader: async ({ params }) => {
           const res = await fetch(
-            `https://asigement-server.vercel.app/transactions/${params.id}`
+            `http://localhost:3000/transactions/${params.id}`
           );
           if (!res.ok) {
             throw new Response("Transaction not found", { status: 404 });
@@ -79,7 +79,7 @@ export const router = createBrowserRouter([
         ),
         loader: async ({ params }) => {
           const res = await fetch(
-            `https://asigement-server.vercel.app/transactions/${params.id}`
+            `http://localhost:3000/transactions/${params.id}`
           );
           if (!res.ok) {
             throw new Response("Transaction not found", { status: 404 });
@@ -98,7 +98,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path:"*",
-    element:<NotFound></NotFound>
-  }
+    path: "*",
+    element: <NotFound></NotFound>,
+  },
 ]);

@@ -11,10 +11,11 @@ import {
 } from "react-icons/fa";
 import { useAuthContext } from "../../Context/useAuthContext";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { googleLogin, createUser, updateUser } = useAuthContext();
+  const { googleLogin, createUser, updateUser, setLoading } = useAuthContext();
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
@@ -60,19 +61,36 @@ const Register = () => {
       .then(() => {
         updateUser(curentUser)
           .then(() => {
-            toast.success("Registration Successful and profile updated!"); // ✅ success toast
+            // toast.success("Registration Successful and profile updated!"); // ✅ success toast
+            Swal.fire({
+              position: "top-center",
+              icon: "success",
+              title: "Registration Successfull ✅",
+              showConfirmButton: false,
+              timer: 1500,
+            });
             form.reset();
-            navigate("/")
+            navigate("/");
           })
           .catch((err) => toast.error("Profile update failed: " + err.message));
       })
-      .catch((error) => toast.error(error.message));
+      .catch((error) => {
+        setLoading(false);
+        toast.error(error.message);
+      });
   };
 
   const handleGoogleLogin = () => {
     googleLogin()
       .then(() => {
-        toast("Login Successfull ✅");
+        // toast("Login Successfull ✅");
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Registration Successfull ✅",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         navigate("/");
       })
       .catch((error) => {
@@ -190,7 +208,10 @@ const Register = () => {
 
           <p className="text-center mb-6">
             Already have an account?{" "}
-            <Link to={"/auth/login"} className="link link-primary font-semibold">
+            <Link
+              to={"/auth/login"}
+              className="link link-primary font-semibold"
+            >
               Login here
             </Link>
           </p>

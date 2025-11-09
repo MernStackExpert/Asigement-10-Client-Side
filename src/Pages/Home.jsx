@@ -24,7 +24,11 @@ const Home = () => {
       if (!user?.email) return;
 
       try {
-        const res = await axios.get(`/transactions?email=${user.email}`);
+        const res = await axios.get(`/transactions?email=${user.email}` , {
+           headers: {
+        authorization: `Bearer ${user?.accessToken}`
+      }
+        });
         const transactions = res.data || [];
 
         let income = 0;

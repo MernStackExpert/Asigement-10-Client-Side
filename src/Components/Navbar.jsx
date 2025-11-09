@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { FaSun, FaMoon, FaWallet } from "react-icons/fa";
 
 const Navbar = () => {
-  const { user, logOut, setUser } = useAuthContext();
+  const { user, logOut, setUser , loading } = useAuthContext();
   const navigate = useNavigate();
 
   const [theme, setTheme] = useState(
@@ -59,7 +59,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-sm backdrop-blur-md sticky top-0 z-50">
+    <div className="navbar bg-base-100 shadow-sm backdrop-blur-md fixed top-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -144,7 +144,9 @@ const Navbar = () => {
             to={"/auth/login"}
             className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white"
           >
-            Login
+            {
+              loading ? <span className="loading loading-infinity loading-xl"></span> : "Login"
+            }
           </Link>
         )}
       </div>
@@ -153,3 +155,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

@@ -10,10 +10,11 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuthContext } from "../../Context/useAuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { loginUser, googleLogin } = useAuthContext();
+  const { loginUser, googleLogin , setLoading } = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -36,23 +37,38 @@ const Login = () => {
 
     loginUser(email, password)
       .then(() => {
-        toast.success("Login Successful!");
+        // toast.success("Login Successful!"); 
+        Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Login Successfull ✅",
+        showConfirmButton: false,
+        timer: 1500,
+      });
         form.reset();
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false)
       });
   };
 
   const handleGoogleLogin = () => {
     googleLogin()
       .then(() => {
-        toast("Login Successfull ✅");
+        Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Login Successfull ✅",
+        showConfirmButton: false,
+        timer: 1500,
+      });
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false)
       });
   };
 

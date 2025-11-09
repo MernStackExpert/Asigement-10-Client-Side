@@ -5,6 +5,7 @@ import Footer from "../Components/Footer";
 import { ToastContainer } from "react-toastify";
 
 const Root = () => {
+
   return (
     <div className="flex flex-col min-h-screen">
       <header>

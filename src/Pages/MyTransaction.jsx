@@ -23,12 +23,15 @@ const MyTransaction = () => {
   const fetchTransactions = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`/transactions`, {
+      const res = await axios.get(`/transactions?email=${user?.email}`, {
         params: {
-          email: user?.email,
+          // email: user?.email,d
           sort: sortField,
           order: sortOrder,
-        },
+        }, 
+         headers: {
+        authorization: `Bearer ${user?.accessToken}`
+      }
       });
       setTransactions(res.data || []);
       setLoading(false);

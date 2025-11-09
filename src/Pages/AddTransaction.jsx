@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import { useAuthContext } from "../Context/useAuthContext";
 import { useAxios } from "../Hooks/useAxios";
+import Swal from "sweetalert2";
 
 const AddTransaction = () => {
   const axios = useAxios();
@@ -73,7 +74,13 @@ const AddTransaction = () => {
 
     try {
       await axios.post("/transactions", transactionData);
-      toast.success("Transaction Added Successfully!");
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Successfull to add Transaction",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       form.reset();
       setTransactionType("Expense");
     } catch (error) {

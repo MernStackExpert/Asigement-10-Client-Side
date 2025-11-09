@@ -50,7 +50,6 @@ const AuthProvider = ({ children }) => {
 
     return () => unsubscribe(); // cleanup
   }, []);
-
   const authInfo = {
     googleLogin,
     user,
@@ -60,6 +59,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     loginUser,
     loading,
+    setLoading,
   };
   return <AuthContext value={authInfo}>{children}</AuthContext>;
 };

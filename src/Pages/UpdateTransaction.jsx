@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useLoaderData, useNavigate } from 'react-router';
-import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import { useLoaderData, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 import {
   FaWallet,
   FaDollarSign,
@@ -10,8 +10,9 @@ import {
   FaArrowUp,
   FaArrowDown,
   FaRegLightbulb,
-} from 'react-icons/fa';
-import { useAxios } from '../Hooks/useAxios';
+} from "react-icons/fa";
+import { useAxios } from "../Hooks/useAxios";
+import Swal from "sweetalert2";
 
 const UpdateTransaction = () => {
   const loadedData = useLoaderData();
@@ -24,26 +25,26 @@ const UpdateTransaction = () => {
   const navigate = useNavigate();
 
   const incomeCategories = [
-    { value: 'Salary', label: 'Salary' },
-    { value: 'Bonus', label: 'Bonus' },
-    { value: 'Freelance', label: 'Freelance' },
-    { value: 'Investment', label: 'Investment' },
-    { value: 'Other', label: 'Other (Income)' },
+    { value: "Salary", label: "Salary" },
+    { value: "Bonus", label: "Bonus" },
+    { value: "Freelance", label: "Freelance" },
+    { value: "Investment", label: "Investment" },
+    { value: "Other", label: "Other (Income)" },
   ];
 
   const expenseCategories = [
-    { value: 'Groceries', label: 'Groceries' },
-    { value: 'Rent', label: 'Rent' },
-    { value: 'Bills', label: 'Bills' },
-    { value: 'Transport', label: 'Transport' },
-    { value: 'Entertainment', label: 'Entertainment' },
-    { value: 'Health', label: 'Health' },
-    { value: 'Savings', label: 'Savings' },
-    { value: 'Other', label: 'Other (Expense)' },
+    { value: "Groceries", label: "Groceries" },
+    { value: "Rent", label: "Rent" },
+    { value: "Bills", label: "Bills" },
+    { value: "Transport", label: "Transport" },
+    { value: "Entertainment", label: "Entertainment" },
+    { value: "Health", label: "Health" },
+    { value: "Savings", label: "Savings" },
+    { value: "Other", label: "Other (Expense)" },
   ];
 
   const categoriesToShow =
-    transactionType === 'Income' ? incomeCategories : expenseCategories;
+    transactionType === "Income" ? incomeCategories : expenseCategories;
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -54,7 +55,7 @@ const UpdateTransaction = () => {
     const date = form.date.value;
 
     if (!category || !amount || !description || !date) {
-      toast('Please fill all fields.');
+      toast("Please fill all fields.");
       return;
     }
 
@@ -68,11 +69,17 @@ const UpdateTransaction = () => {
 
     try {
       await axios.patch(`/transactions/${loadedTransaction._id}`, updatedData);
-      toast('Transaction Updated Successfully!');
-      navigate(`/my-transactions`);
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Transaction Updated Successfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate("/my-transaction");
     } catch (error) {
       console.error(error);
-      toast('Failed to update transaction.');
+      toast("Failed to update transaction.");
     }
   };
 
@@ -101,22 +108,22 @@ const UpdateTransaction = () => {
               <div className="flex bg-base-200 rounded-lg p-1">
                 <button
                   type="button"
-                  onClick={() => handleTypeChange('Income')}
+                  onClick={() => handleTypeChange("Income")}
                   className={`flex-1 btn btn-lg border-none rounded-lg text-lg transition-all duration-300 ${
-                    transactionType === 'Income'
-                      ? 'bg-emerald-500 text-white shadow-md hover:bg-emerald-600'
-                      : 'btn-ghost text-base-content/70 hover:text-emerald-500'
+                    transactionType === "Income"
+                      ? "bg-emerald-500 text-white shadow-md hover:bg-emerald-600"
+                      : "btn-ghost text-base-content/70 hover:text-emerald-500"
                   }`}
                 >
                   <FaArrowUp /> Income
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleTypeChange('Expense')}
+                  onClick={() => handleTypeChange("Expense")}
                   className={`flex-1 btn btn-lg border-none rounded-lg text-lg transition-all duration-300 ${
-                    transactionType === 'Expense'
-                      ? 'bg-rose-500 text-white shadow-md hover:bg-rose-600'
-                      : 'btn-ghost text-base-content/70 hover:text-rose-500'
+                    transactionType === "Expense"
+                      ? "bg-rose-500 text-white shadow-md hover:bg-rose-600"
+                      : "btn-ghost text-base-content/70 hover:text-rose-500"
                   }`}
                 >
                   <FaArrowDown /> Expense
