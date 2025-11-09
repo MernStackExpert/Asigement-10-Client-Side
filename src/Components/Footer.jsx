@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FaWallet, FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import { BsTwitterX } from "react-icons/bs";
+import { FaWallet, FaFacebook, FaLinkedin } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -14,7 +15,7 @@ const Footer = () => {
         <nav>
           <h6 className="footer-title">Contact</h6>
           <a className="link link-hover">Contact Us</a>
-          <a className="link link-hover">info@finease.com</a>
+          <a className="link link-hover">mdnirob30@gmail.com</a>
           <a className="link link-hover">+1 (234) 567-890</a>
         </nav>
         <nav>
@@ -46,7 +47,7 @@ const Footer = () => {
               rel="noreferrer"
               className="link link-hover"
             >
-              <FaTwitter />
+              <BsTwitterX />
             </a>
             <a
               href="https://linkedin.com"

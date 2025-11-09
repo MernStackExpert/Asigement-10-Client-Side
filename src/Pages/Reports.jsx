@@ -109,6 +109,7 @@ const Reports = () => {
 
   return (
     <div className="min-h-screen p-4 md:p-8 bg-base-200">
+            <title>FinEase - Reports</title>
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center text-primary mb-10">
           Financial Reports

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { useAuthContext } from "../Context/useAuthContext";
 import { toast } from "react-toastify";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { FaSun, FaMoon, FaWallet } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logOut, setUser } = useAuthContext();
@@ -85,7 +85,7 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-xl">FinEase</Link>
+        <Link to="/" className="btn btn-ghost text-xl"><FaWallet className="text-2xl text-primary" /> FinEase</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 font-semibold space-x-4">

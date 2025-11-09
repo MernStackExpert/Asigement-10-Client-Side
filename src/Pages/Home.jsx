@@ -51,6 +51,7 @@ const Home = () => {
 
   return (
     <div className="container mx-auto px-4 py-16 space-y-24">
+            <title>FinEase - Home</title>
       <section>
         <div className="hero min-h-[50vh] bg-base-200 rounded-2xl shadow-lg">
           <div className="hero-content text-center">

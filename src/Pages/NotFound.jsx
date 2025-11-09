@@ -5,6 +5,8 @@ import { FaArrowLeft } from 'react-icons/fa';
 const NotFound = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200">
+            <title>NOT-FOUND</title>
+
       <div className="text-center p-8">
         <h1 className="text-9xl font-extrabold text-primary opacity-50">
           404

@@ -31,6 +31,7 @@ const TransactionDetails = () => {
 
   return (
     <div className="min-h-screen p-4 md:p-8 bg-base-200">
+            <title>FinEase - detailes-{transaction._id}</title>
       <div className="card max-w-4xl mx-auto shadow-2xl bg-base-100">
         <div className="card-body p-6 md:p-10">
           <Link

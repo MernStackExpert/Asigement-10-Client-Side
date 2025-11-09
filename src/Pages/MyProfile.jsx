@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaUser, FaLink, FaSave, FaImage } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 import { useAuthContext } from '../Context/useAuthContext';
 
 const MyProfile = () => {
@@ -21,8 +22,12 @@ const MyProfile = () => {
       return;
     }
 
+    const userUpdateData = {
+      displayName, photoURL
+    }
     try {
-      await updateUser(displayName, photoURL); 
+
+      await updateUser(userUpdateData); 
       
       setUser((prevUser) => ({
         ...prevUser,
@@ -39,6 +44,7 @@ const MyProfile = () => {
 
   return (
     <div className="min-h-screen bg-base-200 p-4 md:p-8 flex items-center justify-center font-sans">
+            <title>FinEase - My Profile</title>
       <div className="card w-full max-w-xl bg-base-100 shadow-2xl rounded-xl overflow-hidden transform transition-all duration-300 hover:shadow-3xl">
         <div className="card-body p-6 md:p-10">
           <h2 className="text-4xl font-extrabold text-center text-primary mb-2">

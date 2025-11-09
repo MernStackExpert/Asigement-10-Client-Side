@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   FaWallet,
   FaDollarSign,
@@ -9,6 +10,7 @@ import {
   FaPlus,
   FaArrowUp,
   FaArrowDown,
+  FaPencilAlt,
 } from "react-icons/fa";
 import { useAuthContext } from "../Context/useAuthContext";
 import { useAxios } from "../Hooks/useAxios";
@@ -54,7 +56,7 @@ const AddTransaction = () => {
     const date = form.date.value;
 
     if (!category || !amount || !description || !date) {
-      toast("Please fill all fields.");
+      toast.error("Please fill all fields.");
       return;
     }
 
@@ -71,15 +73,17 @@ const AddTransaction = () => {
 
     try {
       await axios.post("/transactions", transactionData);
-      toast("Transaction Added Successfully!");
+      toast.success("Transaction Added Successfully!");
       form.reset();
       setTransactionType("Expense");
     } catch (error) {
-      toast("Failed to add transaction", error);
+      console.log(error);
+      toast.error("Failed to add transaction");
     }
   };
   return (
     <div className="min-h-screen bg-base-200 p-4 md:p-8">
+      <title>FinEase - Add Transaction</title>
       <div className="card max-w-4xl mx-auto shadow-2xl bg-base-100">
         <form onSubmit={handleSubmit} className="card-body p-6 md:p-10">
           <h2 className="text-3xl font-bold text-center text-primary mb-8">
@@ -123,18 +127,18 @@ const AddTransaction = () => {
               <label className="label">
                 <span className="label-text">Category</span>
               </label>
-              <label className="input input-bordered flex items-center gap-2">
-                <FaWallet />
+              <label className="input input-bordered flex items-center gap-3">
+                <FaWallet className="text-gray-400" />
                 <select
                   name="category"
-                  className="grow bg-transparent"
+                  className="grow bg-transparent appearance-none h-full border-none outline-none"
                   defaultValue=""
                 >
                   <option value="" disabled>
                     Select a category
                   </option>
                   {categoriesToShow.map((category) => (
-                    <option className=" bg-base-100" key={category.value} value={category.value}>
+                    <option key={category.value} value={category.value}>
                       {category.label}
                     </option>
                   ))}
@@ -146,14 +150,14 @@ const AddTransaction = () => {
               <label className="label">
                 <span className="label-text">Amount</span>
               </label>
-              <label className="input input-bordered flex items-center gap-2">
-                <FaDollarSign />
+              <label className="input input-bordered flex items-center gap-3">
+                <FaDollarSign className="text-gray-400" />
                 <input
                   type="number"
                   name="amount"
                   placeholder="0.00"
                   step="0.01"
-                  className="grow"
+                  className="grow bg-transparent"
                 />
               </label>
             </div>
@@ -162,20 +166,24 @@ const AddTransaction = () => {
               <label className="label">
                 <span className="label-text">Date</span>
               </label>
-              <label className="input input-bordered flex items-center gap-2">
-                <FaCalendarAlt />
-                <input type="date" name="date" className="grow" />
+              <label className="input input-bordered flex items-center gap-3">
+                <FaCalendarAlt className="text-gray-400" />
+                <input
+                  type="date"
+                  name="date"
+                  className="grow bg-transparent"
+                />
               </label>
             </div>
 
-            <div className="form-control md:col-span-2 flex flex-col">
+            <div className="form-control md:col-span-2">
               <label className="label">
-                <span className="label-text mb-2">Description</span>
+                <span className="label-text">Description</span>
               </label>
               <textarea
                 name="description"
                 placeholder="Add a short note..."
-                className="textarea textarea-bordered h-30 w-full"
+                className="textarea textarea-bordered h-24 w-full"
               />
             </div>
 
@@ -183,7 +191,7 @@ const AddTransaction = () => {
               <label className="label">
                 <span className="label-text">User Name</span>
               </label>
-              <label className="input input-bordered flex items-center gap-2 text-gray-500 bg-base-200">
+              <label className="input input-bordered flex items-center gap-3 bg-base-200 text-base-content/70">
                 <FaUser />
                 <input
                   type="text"
@@ -198,7 +206,7 @@ const AddTransaction = () => {
               <label className="label">
                 <span className="label-text">User Email</span>
               </label>
-              <label className="input input-bordered flex items-center gap-2 text-gray-500 bg-base-200">
+              <label className="input input-bordered flex items-center gap-3 bg-base-200 text-base-content/70">
                 <FaEnvelope />
                 <input
                   type="email"
