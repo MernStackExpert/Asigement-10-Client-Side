@@ -138,7 +138,7 @@ const AddTransaction = () => {
                 <FaWallet className="text-gray-400" />
                 <select
                   name="category"
-                  className="grow bg-transparent appearance-none h-full border-none outline-none"
+                  className="grow  appearance-none h-full border-none outline-none bg-base-200"
                   defaultValue=""
                 >
                   <option value="" disabled>

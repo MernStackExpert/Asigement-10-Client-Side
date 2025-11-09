@@ -48,7 +48,13 @@ const MyTransaction = () => {
       setLoading(false);
     } catch (error) {
       console.log(error);
-      toast.error("Failed to fetch transactions");
+      Swal.fire({
+              position: "top-center",
+              icon: "error",
+              title: "Failed to fetch transactions",
+              showConfirmButton: false,
+              timer: 1500,
+            });
       setLoading(false);
     }
   }, [axios, user?.email, sortField, sortOrder, user?.accessToken]);

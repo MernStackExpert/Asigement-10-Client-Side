@@ -5,7 +5,7 @@ FinEase is a modern and responsive web application designed to help users manage
 ### [Live Site URL](https://fineaseasigement.netlify.app/)
 
 ---
-
+a
 ## 🚀 Key Features
 
 * **Full Authentication:** Secure JWT (JSON Web Token) based API authentication with Email/Password and Google Sign-in options via Firebase.
