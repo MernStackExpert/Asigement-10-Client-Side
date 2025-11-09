@@ -1,16 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuthContext } from "../Context/useAuthContext";
 import { useAxios } from "../Hooks/useAxios";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
-import {
-  FaPencilAlt,
-  FaTrash,
-  FaEye,
-  FaCalendarAlt,
-} from "react-icons/fa";
+import { FaPencilAlt, FaTrash, FaEye, FaCalendarAlt } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const MyTransaction = () => {
   const axios = useAxios();
@@ -20,18 +16,33 @@ const MyTransaction = () => {
   const [sortField, setSortField] = useState("date");
   const [sortOrder, setSortOrder] = useState("desc");
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   const fetchTransactions = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`/transactions?email=${user?.email}`, {
+      const res = await axios.get(`/transactions`, {
         params: {
-          // email: user?.email,d
+          email: user?.email,
           sort: sortField,
           order: sortOrder,
-        }, 
-         headers: {
-        authorization: `Bearer ${user?.accessToken}`
-      }
+        },
+        headers: {
+          authorization: `Bearer ${user?.accessToken}`,
+        },
       });
       setTransactions(res.data || []);
       setLoading(false);
@@ -40,7 +51,7 @@ const MyTransaction = () => {
       toast.error("Failed to fetch transactions");
       setLoading(false);
     }
-  }, [axios, user?.email, sortField, sortOrder]);
+  }, [axios, user?.email, sortField, sortOrder, user?.accessToken]);
 
   useEffect(() => {
     if (user?.email) {
@@ -81,7 +92,6 @@ const MyTransaction = () => {
 
   return (
     <div className="min-h-screen p-4 md:p-8 bg-base-200">
-            <title>FinEase - My Transaction</title>
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center text-primary mb-10">
           My Transactions
@@ -128,11 +138,17 @@ const MyTransaction = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
             {transactions.map((t) => (
-              <div
+              <motion.div
                 key={t._id}
-                className="card bg-base-100 shadow-xl transition-transform transform hover:-translate-y-2 h-88"
+                className="card bg-base-100 shadow-xl transition-transform transform hover:-translate-y-2 h-[22rem]"
+                variants={cardVariants}
               >
                 <div className="card-body flex flex-col">
                   <div className="flex justify-between items-start">
@@ -161,7 +177,7 @@ const MyTransaction = () => {
                   </p>
                   <div className="card-actions justify-end mt-4 space-x-2">
                     <Link
-                      to={`/transaction-detailes/${t._id}`}
+                      to={`/transaction-details/${t._id}`}
                       className="btn btn-ghost btn-circle"
                       title="View Details"
                     >
@@ -183,12 +199,11 @@ const MyTransaction = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
       </div>
-      <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );
 };

@@ -1,16 +1,48 @@
-# React + Vite
+# FinEase - Personal Finance Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+FinEase is a modern and responsive web application designed to help users manage their personal income and expenses. Users can register, log in, and track all their financial transactions through a clean dashboard. The application also provides insightful charts and reports to visualize financial data effectively.
 
-Currently, two official plugins are available:
+### [Live Site URL](https://YOUR_NETLIFY_LINK_HERE.netlify.app) | [Server URL](https://YOUR_VERCEL_LINK_HERE.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **Full Authentication:** Secure JWT (JSON Web Token) based API authentication with Email/Password and Google Sign-in options via Firebase.
+* **Transaction CRUD:** Full CRUD (Create, Read, Update, Delete) operations for managing both Income and Expenses.
+* **Dynamic Dashboard & Reports:** A real-time financial overview on the Home Page (Current Balance, Total Income, Total Expense) and a detailed Reports Page using Recharts (category-based Pie Chart and monthly Bar Chart).
+* **Filtering and Sorting:** Users can filter reports by month or category and sort their transaction list by date or amount on the server-side.
+* **Premium UI/UX:** Features a smooth Light/Dark mode toggle and engaging page transitions and card list animations powered by Framer Motion.
+* **Protected Routes:** Secure private routes (like 'My Transactions', 'Reports') that automatically redirect unauthenticated users to the Login page.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Technology Stack
+
+### Client-Side
+
+* **UI Framework:** React.js
+* **Routing:** React Router Dom (v6)
+* **Styling:** Tailwind CSS, DaisyUI
+* **Animation:** Framer Motion
+* **State Management:** React Context API
+* **Data Fetching:** Axios (with Custom Hook)
+* **Charts:** Recharts
+* **Notifications:** React Toastify, SweetAlert2
+* **Icons:** React Icons
+
+### Server-Side
+
+* **Runtime:** Node.js
+* **Framework:** Express.js
+* **Database:** MongoDB (MongoDB Atlas)
+* **Security:** JWT (JSON Web Token), CORS
+
+### Authentication
+
+* Firebase Authentication (Email/Password & Google)
+
+### Deployment
+
+* **Client:** Netlify
+* **Server:** Vercel
