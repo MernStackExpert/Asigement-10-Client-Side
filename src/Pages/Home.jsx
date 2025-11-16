@@ -11,6 +11,7 @@ import { AuthContext } from "../Provider/AuthContext";
 import { useAxios } from "../Hooks/useAxios";
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
   const axios = useAxios();
   const [financialData, setFinancialData] = useState({
@@ -22,12 +23,12 @@ const Home = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       if (!user?.email) return;
-
+      setLoading(true);
       try {
-        const res = await axios.get(`/transactions?email=${user.email}` , {
-           headers: {
-        authorization: `Bearer ${user?.accessToken}`
-      }
+        const res = await axios.get(`/transactions?email=${user.email}`, {
+          headers: {
+            authorization: `Bearer ${user?.accessToken}`,
+          },
         });
         const transactions = res.data || [];
 
@@ -47,6 +48,8 @@ const Home = () => {
         setFinancialData({ income, expense, balance });
       } catch (error) {
         console.error("Failed to fetch transactions:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -55,7 +58,7 @@ const Home = () => {
 
   return (
     <div className="container mx-auto px-4 py-16 space-y-24">
-            <title>FinEase - Home</title>
+      <title>FinEase - Home</title>
       <section>
         <div className="hero min-h-[50vh] bg-base-200 rounded-2xl shadow-lg">
           <div className="hero-content text-center">
@@ -83,40 +86,50 @@ const Home = () => {
           Your Financial Overview
         </h2>
 
-        <div className="stats stats-vertical lg:stats-horizontal shadow-xl w-full">
-          <div className="stat">
-            <div className="stat-figure text-primary">
-              <FaWallet className="text-4xl" />
-            </div>
-            <div className="stat-title">Current Balance</div>
-            <div className="stat-value">
-              ${financialData.balance.toLocaleString()}
-            </div>
-            <div className="stat-desc">Your total savings</div>
+        {!user ? (
+          <p className="text-center text-lg text-gray-500">
+            Please login to view your financial overview.
+          </p>
+        ) : loading ? (
+          <div className="flex justify-center items-center py-10">
+            <span className="loading loading-spinner text-primary"></span>
           </div>
+        ) : (
+          <div className="stats stats-vertical lg:stats-horizontal shadow-xl w-full">
+            <div className="stat">
+              <div className="stat-figure text-primary">
+                <FaWallet className="text-4xl" />
+              </div>
+              <div className="stat-title">Current Balance</div>
+              <div className="stat-value">
+                ${financialData.balance.toLocaleString()}
+              </div>
+              <div className="stat-desc">Your total savings</div>
+            </div>
 
-          <div className="stat">
-            <div className="stat-figure text-success">
-              <FaArrowCircleUp className="text-4xl" />
+            <div className="stat">
+              <div className="stat-figure text-success">
+                <FaArrowCircleUp className="text-4xl" />
+              </div>
+              <div className="stat-title">Total Income (This Month)</div>
+              <div className="stat-value text-success">
+                ${financialData.income.toLocaleString()}
+              </div>
+              <div className="stat-desc">Your income sources</div>
             </div>
-            <div className="stat-title">Total Income (This Month)</div>
-            <div className="stat-value text-success">
-              ${financialData.income.toLocaleString()}
-            </div>
-            <div className="stat-desc">Your income sources</div>
-          </div>
 
-          <div className="stat">
-            <div className="stat-figure text-error">
-              <FaArrowCircleDown className="text-4xl" />
+            <div className="stat">
+              <div className="stat-figure text-error">
+                <FaArrowCircleDown className="text-4xl" />
+              </div>
+              <div className="stat-title">Total Expenses (This Month)</div>
+              <div className="stat-value text-error">
+                ${financialData.expense.toLocaleString()}
+              </div>
+              <div className="stat-desc">Your spending categories</div>
             </div>
-            <div className="stat-title">Total Expenses (This Month)</div>
-            <div className="stat-value text-error">
-              ${financialData.expense.toLocaleString()}
-            </div>
-            <div className="stat-desc">Your spending categories</div>
           </div>
-        </div>
+        )}
       </section>
 
       <section>

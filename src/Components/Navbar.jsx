@@ -37,26 +37,65 @@ const Navbar = () => {
     e.target.src = 'https://i.ibb.co/V3Tj6Vf/user.png';
   };
 
-  const links = (
-    <>
-      <li>
-        <NavLink to={"/"}>Home</NavLink>
-      </li>
-      {user && (
-        <>
-          <li>
-            <NavLink to={"/add-transaction"}>Add Transaction</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/my-transaction"}>My Transactions</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/reports"}>Reports</NavLink>
-          </li>
-        </>
-      )}
-    </>
-  );
+const links = (
+  <>
+    <li>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          isActive
+            ? "text-purple-600 font-semibold border-b-2 border-purple-600"
+            : "text-gray-700 hover:text-purple-500"
+        }
+      >
+        Home
+      </NavLink>
+    </li>
+
+    {user && (
+      <>
+        <li>
+          <NavLink
+            to="/add-transaction"
+            className={({ isActive }) =>
+              isActive
+                ? "text-purple-600 font-semibold border-b-2 border-purple-600"
+                : "text-gray-700 hover:text-purple-500"
+            }
+          >
+            Add Transaction
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            to="/my-transaction"
+            className={({ isActive }) =>
+              isActive
+                ? "text-purple-600 font-semibold border-b-2 border-purple-600"
+                : "text-gray-700 hover:text-purple-500"
+            }
+          >
+            My Transactions
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            to="/reports"
+            className={({ isActive }) =>
+              isActive
+                ? "text-purple-600 font-semibold border-b-2 border-purple-600"
+                : "text-gray-700 hover:text-purple-500"
+            }
+          >
+            Reports
+          </NavLink>
+        </li>
+      </>
+    )}
+  </>
+);
 
   return (
     <div className="navbar bg-base-100 shadow-sm backdrop-blur-md fixed top-0 z-50">

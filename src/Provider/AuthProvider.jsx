@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
-
+   
   const logOut = () => {
     return signOut(auth);
   };
@@ -41,6 +41,8 @@ const AuthProvider = ({ children }) => {
       photoURL: curentUser.photoURL,
     });
   };
+
+  
 
 useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
