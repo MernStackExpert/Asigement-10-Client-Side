@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { FaSun, FaMoon, FaWallet } from "react-icons/fa";
 
 const Navbar = () => {
-  const { user, logOut, setUser , loading } = useAuthContext();
+  const { user, logOut, setUser, loading } = useAuthContext();
   const navigate = useNavigate();
 
   const [theme, setTheme] = useState(
@@ -28,194 +28,209 @@ const Navbar = () => {
       setUser(null);
       navigate("/auth/login");
     } catch (error) {
-      console.log(error);
       toast.error(error.message || "Failed to log out");
     }
   };
-  
+
   const handleImageError = (e) => {
-    e.target.src = 'https://i.ibb.co/V3Tj6Vf/user.png';
+    e.target.src = "https://i.ibb.co/V3Tj6Vf/user.png";
   };
 
-const links = (
-  <>
-    <li>
-      <NavLink
-        to="/"
-        className={({ isActive }) =>
-          isActive
-            ? "text-purple-600 font-semibold border-b-2 border-purple-600"
-            : "text-gray-700 hover:text-purple-500"
-        }
-      >
-        Home
-      </NavLink>
-    </li>
-    <li>
-      <NavLink
-        to="/contact"
-        className={({ isActive }) =>
-          isActive
-            ? "text-purple-600 font-semibold border-b-2 border-purple-600"
-            : "text-gray-700 hover:text-purple-500"
-        }
-      >
-        Contact
-      </NavLink>
-    </li>
-    <li>
-      <NavLink
-        to="/services"
-        className={({ isActive }) =>
-          isActive
-            ? "text-purple-600 font-semibold border-b-2 border-purple-600"
-            : "text-gray-700 hover:text-purple-500"
-        }
-      >
-        Services
-      </NavLink>
-    </li>
+  const links = (
+    <>
+      <li>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? "text-primary font-bold border-b-2 border-primary rounded-none"
+              : "text-base-content/70 hover:text-primary transition-all"
+          }
+        >
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            isActive
+              ? "text-primary font-bold border-b-2 border-primary rounded-none"
+              : "text-base-content/70 hover:text-primary transition-all"
+          }
+        >
+          Contact
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/services"
+          className={({ isActive }) =>
+            isActive
+              ? "text-primary font-bold border-b-2 border-primary rounded-none"
+              : "text-base-content/70 hover:text-primary transition-all"
+          }
+        >
+          Services
+        </NavLink>
+      </li>
 
-    {user && (
-      <>
-        <li>
-          <NavLink
-            to="/add-transaction"
-            className={({ isActive }) =>
-              isActive
-                ? "text-purple-600 font-semibold border-b-2 border-purple-600"
-                : "text-gray-700 hover:text-purple-500"
-            }
-          >
-            Add Transaction
-          </NavLink>
-        </li>
-
-        <li>
-          <NavLink
-            to="/my-transaction"
-            className={({ isActive }) =>
-              isActive
-                ? "text-purple-600 font-semibold border-b-2 border-purple-600"
-                : "text-gray-700 hover:text-purple-500"
-            }
-          >
-            My Transactions
-          </NavLink>
-        </li>
-
-        <li>
-          <NavLink
-            to="/reports"
-            className={({ isActive }) =>
-              isActive
-                ? "text-purple-600 font-semibold border-b-2 border-purple-600"
-                : "text-gray-700 hover:text-purple-500"
-            }
-          >
-            Reports
-          </NavLink>
-        </li>
-      </>
-    )}
-  </>
-);
+      {user && (
+        <>
+          <li>
+            <NavLink
+              to="/add-transaction"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-primary font-bold border-b-2 border-primary rounded-none"
+                  : "text-base-content/70 hover:text-primary transition-all"
+              }
+            >
+              Add Transaction
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/my-transaction"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-primary font-bold border-b-2 border-primary rounded-none"
+                  : "text-base-content/70 hover:text-primary transition-all"
+              }
+            >
+              My Transactions
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/reports"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-primary font-bold border-b-2 border-primary rounded-none"
+                  : "text-base-content/70 hover:text-primary transition-all"
+              }
+            >
+              Reports
+            </NavLink>
+          </li>
+        </>
+      )}
+    </>
+  );
 
   return (
-    <div className="navbar bg-base-100 shadow-sm backdrop-blur-md fixed top-0 z-50">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow font-semibold space-y-2"
-          >
-            {links}
-          </ul>
-        </div>
-        <Link to="/" className="btn btn-ghost text-xl"><FaWallet className="text-2xl text-primary" /> FinEase</Link>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 font-semibold space-x-4">
-          {links}
-        </ul>
-      </div>
-      <div className="navbar-end">
-        <label className="swap swap-rotate btn btn-ghost btn-circle mr-2">
-          <input
-            type="checkbox"
-            onChange={handleThemeToggle}
-            checked={theme === "dark"}
-          />
-          <FaSun className="swap-on fill-current w-5 h-5" />
-          <FaMoon className="swap-off fill-current w-5 h-5" />
-        </label>
-
-        {user ? (
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img
-                  alt="User profile photo"
-                  src={user?.photoURL || 'https://i.ibb.co/V3Tj6Vf/user.png'}
-                  onError={handleImageError}
+    <div className="w-full bg-base-100/80 backdrop-blur-md shadow-md fixed top-0 z-50">
+      <div className="max-w-[1440px] mx-auto navbar px-4 lg:px-8">
+        <div className="navbar-start">
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
                 />
-              </div>
+              </svg>
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow font-semibold"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-4 shadow-2xl font-semibold space-y-3"
             >
-              <li className="px-4 py-2">
-                <span className="font-bold text-base-content p-0">
-                  {user?.displayName || 'User'}
-                </span>
-                <span className="text-xs text-gray-500 p-0 mt-2">
-                  {user?.email}
-                </span>
-              </li>
-              <li><div className="divider my-0"></div></li>
-              <li>
-                <Link to={"/my-profile"}>My Profile</Link>
-              </li>
-              <li>
-                <a onClick={handleLogOut}>Logout</a>
-              </li>
+              {links}
             </ul>
           </div>
-        ) : (
           <Link
-            to={"/auth/login"}
-            className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white"
+            to="/"
+            className="flex items-center gap-2 text-2xl font-black tracking-tighter text-primary"
           >
-            {
-              loading ? <span className="loading loading-infinity loading-xl"></span> : "Login"
-            }
+            <FaWallet className="text-3xl" />
+            <span className="hidden sm:block">FinEase</span>
           </Link>
-        )}
+        </div>
+
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1 font-semibold space-x-2">
+            {links}
+          </ul>
+        </div>
+
+        <div className="navbar-end gap-2">
+          <label className="swap swap-rotate btn btn-ghost btn-circle">
+            <input
+              type="checkbox"
+              onChange={handleThemeToggle}
+              checked={theme === "dark"}
+            />
+            <FaSun className="swap-on fill-current w-5 h-5 text-yellow-500" />
+            <FaMoon className="swap-off fill-current w-5 h-5" />
+          </label>
+
+          {user ? (
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar ring ring-primary ring-offset-base-100 ring-offset-2"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="User Profile"
+                    src={user?.photoURL || "https://i.ibb.co/V3Tj6Vf/user.png"}
+                    onError={handleImageError}
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-2xl z-[1] mt-4 w-64 p-4 shadow-2xl border border-base-300"
+              >
+                <li className="px-2 py-3 mb-2">
+                  <div className="flex flex-col items-start gap-1">
+                    <span className="font-black text-lg">
+                      {user?.displayName || "User"}
+                    </span>
+                    <span className="text-xs opacity-60 italic leading-none">
+                      {user?.email}
+                    </span>
+                  </div>
+                </li>
+                <div className="divider my-0 opacity-20"></div>
+                <li>
+                  <Link to="/my-profile" className="py-3">My Profile</Link>
+                </li>
+                <li>
+                  <button
+                    onClick={handleLogOut}
+                    className="py-3 text-error font-bold"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <Link
+              to="/auth/login"
+              className="btn btn-primary rounded-full px-8 text-white font-bold shadow-lg shadow-primary/20"
+            >
+              {loading ? (
+                <span className="loading loading-spinner loading-sm"></span>
+              ) : (
+                "Login"
+              )}
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
 export default Navbar;
-

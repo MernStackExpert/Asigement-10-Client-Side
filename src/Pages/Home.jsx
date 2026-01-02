@@ -49,7 +49,7 @@ const Home = () => {
   }, [user?.email]);
 
   return (
-    <div className="bg-base-100 overflow-hidden">
+    <div className="bg-base-100 overflow-hidden max-w-[1400px] mx-auto">
       <title>FinEase | Master Your Money</title>
 
       <Hero />

@@ -32,7 +32,7 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-base-200 rounded-b-[50px] shadow-inner">
+    <section className="relative overflow-hidden bg-base-200 rounded-[50px] shadow-inner">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
