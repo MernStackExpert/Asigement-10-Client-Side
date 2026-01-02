@@ -201,7 +201,7 @@ const MyTransaction = () => {
                 <button
                   onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
                   disabled={currentPage === 0}
-                  className="join-item btn btn-ghost px-6 disabled:opacity-30"
+                  className="join-item btn btn-ghost px-6 disabled:opacity-30 text-green-500"
                 >
                   Prev
                 </button>
@@ -219,7 +219,7 @@ const MyTransaction = () => {
                 <button
                   onClick={() => setCurrentPage(Math.min(totalPages - 1, currentPage + 1))}
                   disabled={currentPage === totalPages - 1}
-                  className="join-item btn btn-ghost px-6 disabled:opacity-30"
+                  className="join-item btn btn-ghost px-6 disabled:opacity-30 text-green-500"
                 >
                   Next
                 </button>
